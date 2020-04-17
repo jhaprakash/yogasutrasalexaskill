@@ -73,68 +73,40 @@ public class SutraRepo
     }
 
     /**
-     * @return String containing long description of a sutra. If long description is not available, short description is returned instead.
+     * Method returns a random sutra from the repo
+     * @return  A random YogaSutra from the repo. If no Yoga Sutras in the repo, return null.
      */
-    public String getRandomSutraLongDescription()
+    public YogaSutra getRandomYogaSutra()
     {
-        String longDesc = getRandomSutra(true);
-
-        if (!longDesc.isEmpty())    return longDesc;
-        return getRandomSutra(false);
+        return getYogaSutra(new Random().nextInt(sutraArrayList.size()));
     }
 
     /**
-     * @return String containing short description of a sutra.
+     * @param currentIndex  Next sutra after the current index
+     * @return  YogaSutra next in the repo. If currentIndex was last, method returns first sutra
      */
-    public String getRandomSutraShortDescription()
+    public YogaSutra getNextYogaSutra(int currentIndex)
     {
-        return getRandomSutra(false);
+        return getYogaSutra(currentIndex + 1);
     }
 
     /**
-     * @param getLong If set to true, returns long description, else short description is returned
-     * @return  description associated with the sutra
+     * @param currentIndex Previous sutra to current index
+     * @return  YogaSutra prior to current index. If currentIndex is 0, last YogaSutra will be returned.
      */
-    private String getRandomSutra(boolean getLong)
+    public YogaSutra getPreviousYogaSutra(int currentIndex)
     {
-        if (sutraArrayList.size() == 0)     return "Sorry, no sutras in the repo";
-        int randomIndex = new Random().nextInt(sutraArrayList.size());
-        if (getLong)    return getLongDescription(randomIndex);
-        return getShortDescription(randomIndex);
-    }
-
-    /**
-     * @param index index of the sutra who's description is needed. Long description can be an empty string
-     * @return Long description associated with the sutra.
-     */
-    private String getLongDescription(int index)
-    {
-        return getSutraDescription(index, true);
+        return getYogaSutra(currentIndex - 1);
     }
 
     /**
      * @param index index of the sutra who's description is needed.
-     * @return short description associated with the sutra.
+     * @return YogaSutra at given index. If no Yoga Sutras in the repo, return null.
      */
-    private String getShortDescription(int index)
+    public YogaSutra getYogaSutra(int index)
     {
-        return getSutraDescription(index, false);
-    }
-
-    /**
-     * @param index ndex of the sutra who's description is needed.
-     * @param getLong if set to true, returns long description, else returns false
-     * @return Description associated with the sutra.
-     */
-    private String getSutraDescription(int index, boolean getLong)
-    {
-        if (index >= sutraArrayList.size())
-        {
-            logger.info("No sutra exists at index: " + index);
-            return "Sorry, no sutra here";
-        }
-        if (getLong)    return sutraArrayList.get(index).getLongDescription();
-
-        return sutraArrayList.get(index).getShortDescription();
+        if (sutraArrayList.size() == 0) return null;
+        if (index < 0)  return sutraArrayList.get(sutraArrayList.size() - 1);   // Last sutra in the repo
+        return sutraArrayList.get(index % sutraArrayList.size());
     }
 }

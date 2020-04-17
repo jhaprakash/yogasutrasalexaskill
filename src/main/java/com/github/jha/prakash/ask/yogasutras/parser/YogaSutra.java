@@ -28,7 +28,7 @@ public class YogaSutra
                 '}';
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 

@@ -18,7 +18,7 @@ public class DefaultLaunchRequestHandler implements LaunchRequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input, LaunchRequest launchRequest) {
         return input.getResponseBuilder()
-                .withSpeech("This is the Yoga Sutras Alexa Skill app version 1.0")
+                .withSpeech("This is the Yoga Sutras Alexa Skill app version 1.1")
                 .build();
     }
 }

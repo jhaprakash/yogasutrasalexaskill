@@ -9,9 +9,9 @@ public class TestSutraRepo
     public void testGetRandomSutraShortDescription()
     {
         SutraRepo repo = SutraRepo.getInstance();
-        String randomSutra1 = repo.getRandomSutraShortDescription();
-        String randomSutra2 = repo.getRandomSutraShortDescription();
+        YogaSutra randomSutra1 = repo.getRandomYogaSutra();
+        YogaSutra randomSutra2 = repo.getRandomYogaSutra();
 
-        Assert.assertNotEquals(randomSutra1, randomSutra2);
+        Assert.assertNotEquals(randomSutra1.getCount(), randomSutra2.getCount());
     }
 }
